@@ -35,7 +35,7 @@ jobs:
 
         with:
 
-          smalltalk-version: Pharo64-8.0
+          smalltalk-version: Pharo64-11.0
 
       - run: smalltalkci -s ${{ steps.smalltalkci.outputs.smalltalk-version }}
 
