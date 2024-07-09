@@ -1,8 +1,7 @@
 SmalltalkCISpec {
-  #preLoading : 'ci/preLoading.st',
+
   #loading : [
     SCIMetacelloLoadSpec {
-      #baseline : 'ARL-to-DRL',
       #repository : 'git@github.com:CI-CD-energy-cost-experiment/PharoARLtoDrlMigration.git',
       #directory: 'src',
       #platforms : [ #pharo ],
@@ -11,7 +10,7 @@ SmalltalkCISpec {
     }
   ],
   #postLoading : [
-    'ci/ARLRuleParser.class.st'
+    
   ],
   #testing: {
     #failOnZeroTests : false
