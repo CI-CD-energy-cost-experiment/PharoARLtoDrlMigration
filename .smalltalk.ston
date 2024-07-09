@@ -10,10 +10,6 @@ SmalltalkCISpec {
     }
   ],
 
-  #postLoading : [
-    "Optional: Actions to perform after loading"
-  ],
-
   #testing: {
     #failOnZeroTests : false
   }
