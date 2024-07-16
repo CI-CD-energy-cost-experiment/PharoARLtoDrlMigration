@@ -1,44 +1,47 @@
 name: CI
 
-
 env:
-
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-
-# Controls when the action will run. Triggers the workflow on push or pull request
-
-# events but only for the development branch
-
 on:
-
   push:
-
-    branches:
-
-      - main
-
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        smalltalk: [ Moose64-11 ]
+    name: ${{ matrix.smalltalk }}
     steps:
-
-      - uses: actions/checkout@v2
-
-      - uses: hpi-swa/setup-smalltalkCI@v1
-
-        id: smalltalkci
-
+      - name: Start Measurement
+        uses: green-coding-solutions/eco-ci-energy-estimation@v3 # use hash or @vX here (See note below)
         with:
+          task: start-measurement
 
-          smalltalk-version: Moose64-11
-
-      - run: smalltalkci -s ${{ steps.smalltalkci.outputs.smalltalk-version }}
-
+      
+      - uses: actions/checkout@v4
+      - uses: hpi-swa/setup-smalltalkCI@v1
+        with:
+          smalltalk-image: ${{ matrix.smalltalk }}
+      - run: smalltalkci -s ${{ matrix.smalltalk }}
         shell: bash
+        timeout-minutes: 15
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
-        timeout-minutes: 60
+      - name: Demo
+        uses: green-coding-solutions/eco-ci-energy-estimation@v3 # use hash or @vX here (See note below)
+        with:
+          task: get-measurement
+          label: 'Demo'
+
+      - name: Show Energy Results
+        uses: green-coding-solutions/eco-ci-energy-estimation@v3 # use hash or @vX here (See note below)
+        with:
+          task: display-results
