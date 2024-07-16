@@ -1,16 +1,10 @@
 SmalltalkCISpec {
-
   #loading : [
     SCIMetacelloLoadSpec {
-      #repository : 'git@github.com:CI-CD-energy-cost-experiment/PharoARLtoDrlMigration.git',
-      #directory: 'src',
-      #platforms : [ #pharo ],
+      #baseline : 'PharoARLtoDrlMigration',
       #onConflict : #useIncoming,
-      #onUpgrade : #useIncoming
+      #directory : 'src',
+      #platforms : [ #pharo ]
     }
   ],
-
-  #testing: {
-    #failOnZeroTests : false
-  }
 }
